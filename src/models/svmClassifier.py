@@ -12,7 +12,7 @@ from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
 
 """
-NEEDS TO BE MODIFIED WITH PROCESSED DATA
+NEEDS TO BE MODIFIED WITH PROCESSED DATA AND FIX COMMENTS
 """
 
 # load dataset
@@ -54,10 +54,10 @@ print("Accuracy:", accuracy_score(y_test, predictions))
 move into results once data is good and change var names
 """
 
-# Create the confusion matrix
+# create confusion matrix
 cm = confusion_matrix(y_test, predictions)
 
-# Plot using Seaborn
+# plot using Seaborn
 plt.figure(figsize=(8, 6))
 sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
             xticklabels=['Benign (0)', 'Malignant (1)'], 
@@ -67,24 +67,24 @@ plt.ylabel('Actual')
 plt.title('SVM Confusion Matrix')
 plt.show()
 
-# 2. PCA to reduce to 2D
+# PCA to reduce to 2D
 pca = PCA(n_components=2)
 X_test_pca = pca.fit_transform(X_test)
 
-# 3. Train a model on the 2D data for the plot
+# train a model on the 2D data for the plot
 model_2d = SVC(kernel='rbf')
 model_2d.fit(X_test_pca, y_test)
 
-# 4. Create a grid (using more points instead of a fixed small step)
+# Create a grid (using more points instead of a fixed small step)
 x_min, x_max = X_test_pca[:, 0].min() - 1, X_test_pca[:, 0].max() + 1
 y_min, y_max = X_test_pca[:, 1].min() - 1, X_test_pca[:, 1].max() + 1
 
-# Instead of h=0.02, we tell it to just make 500 steps. 
-# This works regardless of how big or small your numbers are!
+# instead of h=0.02, we tell it to just make 500 steps. 
+# this works regardless of how big or small your numbers are
 xx, yy = np.meshgrid(np.linspace(x_min, x_max, 500), 
                      np.linspace(y_min, y_max, 500))
 
-# 5. Predict and Plot
+# predict and Plot
 Z = model_2d.predict(np.c_[xx.ravel(), yy.ravel()])
 Z = Z.reshape(xx.shape)
 
@@ -103,7 +103,7 @@ X_3d = pca_3d.fit_transform(X_test)
 fig = plt.figure(figsize=(10, 8))
 ax = fig.add_subplot(111, projection='3d')
 
-# Scatter plot for 3D
+# scatter plot for 3D
 ax.scatter(X_3d[:, 0], X_3d[:, 1], X_3d[:, 2], c=y_test, cmap='coolwarm', s=60)
 
 ax.set_xlabel('PC1')
