@@ -94,7 +94,6 @@ plt.scatter(X_test_pca[:, 0], X_test_pca[:, 1], c=y_test, edgecolors='k', cmap=p
 plt.title('SVM Decision Boundary (Unscaled Data)')
 plt.xlabel('Principal Component 1')
 plt.ylabel('Principal Component 2')
-plt.savefig("decision_boundary.png")
 plt.show()
 
 # 3D PCA visual
