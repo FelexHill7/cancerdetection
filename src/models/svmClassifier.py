@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from sklearn.decomposition import PCA
 
 import seaborn as sns
@@ -17,8 +17,8 @@ from mpl_toolkits.mplot3d import Axes3D
 
 X_train_path = "data/processedData/X_train_scaled.csv"
 Y_train_path = "data/processedData/Y_train.csv"
-X_test_path  = "data/processedData/X_test_scaled.csv"
-Y_test_path  = "data/processedData/Y_test.csv"
+X_test_path = "data/processedData/X_test_scaled.csv"
+Y_test_path = "data/processedData/Y_test.csv"
 
 X_train = pd.read_csv(X_train_path, index_col=0).values
 Y_train = pd.read_csv(Y_train_path, index_col=0).values.ravel()
@@ -43,6 +43,9 @@ model.fit(X_train, Y_train)
 predictions = model.predict(X_test)
 
 print("Accuracy:", accuracy_score(Y_test, predictions))
+print()
+print(classification_report(Y_test, predictions,
+      target_names=["Benign (0)", "Malignant (1)"]))
 
 
 # -------------------------
@@ -76,7 +79,7 @@ pca = PCA(n_components=2)
 X_test_pca = pca.fit_transform(X_test)
 
 model_2d = SVC(kernel="rbf")
-model_2d.fit(X_test_pca, Y_test)
+model_2d.fit(pca.transform(X_train), Y_train)
 
 # Create grid for decision boundary
 x_min, x_max = X_test_pca[:, 0].min() - 1, X_test_pca[:, 0].max() + 1
