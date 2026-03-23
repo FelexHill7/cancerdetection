@@ -20,8 +20,8 @@ The dataset contains clinical measurements from breast cancer biopsies, includin
 - View predictions: Check `models/` folder for CSV outputs
 
 ## Results
-- **Accuracy**: SVM (98.2%), Logistic Regression (96.5%), Neural Network (97.8%)
-- **F1-Score**: All models >0.95
+- **Accuracy**: All models > 96% accurate
+- **F1-Score**: All models > 0.95
 - Visualizations: Decision boundaries and PCA plots in notebooks
 
 ## Successes
